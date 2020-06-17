@@ -11,7 +11,7 @@
       <h2>RBA BetterBattleFiles</h2>
     </header>
     <main>
-      <input class="help-btn" type="button" value="?" onclick="document.querySelector('.help').classList.toggle('hidden')">
+      <input class="help-btn" type="button" value="?">
       <div class="help hidden">
         <h3>Variables</h3>
         <ul>
@@ -94,104 +94,59 @@
       <section> <!-- on/off -->
         <div class="setting-wrapper horizontal">
           <label>Deaktivieren</label>
-          <input class="toggle-btn active" type="button" value="" onclick="toggleExtension(event.target)">
+          <input class="toggle-btn active" type="button" value="">
         </div>
       </section>
       <section> <!-- file -->
         <div class="setting-wrapper vertical">
           <label>Dateiname</label>
-          <input name="template_filename" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_filename" class="configOption" type="text">
         </div>
       </section>
       <section> <!-- album -->
         <div class="setting-wrapper vertical">
           <label>Albumtitel</label>
-          <input name="template_albumtitle" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_albumtitle" class="configOption" type="text">
         </div>
         <div class="setting-wrapper vertical">
           <label>Albuminterpret</label>
-          <input name="template_albumartist" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_albumartist" class="configOption" type="text">
         </div>
       </section>
       <section> <!-- song -->
         <div class="setting-wrapper vertical">
           <label>Titel</label>
-          <input name="template_title" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_title" class="configOption" type="text">
         </div>
         <div class="setting-wrapper vertical">
           <label>Untertitel</label>
-          <input name="template_subtitle" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_subtitle" class="configOption" type="text">
         </div>
         <div class="setting-wrapper vertical">
           <label>Tracknummer</label>
-          <input name="template_tracknmbr" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_tracknmbr" class="configOption" type="text">
         </div>
         <div class="setting-wrapper vertical">
           <label>Interpret</label>
-          <input name="template_artist" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_artist" class="configOption" type="text">
         </div>
         <div class="setting-wrapper vertical">
           <label>Genre (mehrere mit '||' trennen)</label>
-          <input name="template_genre" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_genre" class="configOption" type="text">
         </div>
         <div class="setting-wrapper vertical">
           <label>Sprache</label>
-          <input name="template_language" onchange="setConfigOption(event.target.name, event.target.value)" class="configOption" type="text">
+          <input name="template_language" class="configOption" type="text">
         </div>
       </section>
       <section> <!-- reset -->
         <div></div>
         <div class="setting-wrapper horizontal reverse">
-          <input class="click-btn" type="button" value="zurücksetzen" onclick="resetConfig()">
+          <input class="click-btn" type="button" value="zurücksetzen">
         </div>
       </section>
     </main>
     <script src="config.js"></script>
     <script src="settings.js"></script>
-    <script>
-      //  set values of all inputs by their config value
-      function setConfigValues(){
-        //  set default config if config is empty
-        getConfig((cfg) =>{
-          if(Object.keys(cfg).length < 1)
-            setConfigDefaults();
-          //  text / number inputs
-          const configOptionElements = document.querySelectorAll(".configOption");
-          for(let el of configOptionElements){
-            getConfigOption(el.name, (val) =>{
-              if(val)
-                el.value = val;
-            });
-          }
-
-          //  activated / deactivated button, + set class
-          const activeBtnElement = document.querySelector(".toggle-btn");
-          getConfigOption("extensionIsActive", (val) =>{
-            if(val != activeBtnElement.classList.contains("active"))
-              toggleExtension(activeBtnElement);
-          });
-        });
-      }
-      
-      //  toggle class for the activated / deactivated button and save it to config
-      function toggleExtension(el){
-        el.classList.toggle("active");
-        let text = "Aktivieren";
-        if(el.classList.contains("active"))
-          text = "Deaktivieren";
-        el.previousElementSibling.innerHTML = text;
-        setConfigOption("extensionIsActive", el.classList.contains("active"));
-      }
-      
-      //  clear config and set it to it's defaults
-      function resetConfig(){
-        clearConfig();
-        setConfigDefaults();
-        setConfigValues();
-      }
-      
-      //  set config values on start
-      setConfigValues();
-    </script>
   </body>
 </html>

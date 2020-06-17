@@ -1,0 +1,43 @@
+{
+  "name": "RBA - Better Battle Files",
+  "version": "0.1",
+  "description": "Changes metadata of rba battle files (mp3s)",
+  "permissions": ["downloads", "storage", "tabs"],
+  "background": {
+    "scripts": ["script/background.js", "settings/config.js", "settings/settings.js"],
+    "persistent": false
+  },
+  "icons":{
+    "512": "assets/icon512.png",
+    "256": "assets/icon256.png",
+    "128": "assets/icon128.png",
+    "64": "assets/icon64.png",
+    "48": "assets/icon48.png"
+  },
+  "content_scripts":[
+    {
+      "matches": ["*://*.r-b-a.de/*"],
+      "js": ["script/main.js", "lib/browser-id3-writer.js"]
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["settings/config.js", "settings/settings.js"]
+    }
+  ],
+  "options_ui":{
+    "page": "settings/settings.html",
+    "open_in_tab": false
+  },
+  "browser_action":{
+    "default_popup": "settings/settings.html",
+    "default_title": "RBA - Better Battle Files",
+    "default_icon": {
+      "512": "assets/icon512.png",
+      "256": "assets/icon256.png",
+      "128": "assets/icon128.png",
+      "64": "assets/icon64.png",
+      "48": "assets/icon48.png"
+    }
+  },
+  "manifest_version": 2
+}
